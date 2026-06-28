@@ -36,7 +36,6 @@
         }
         .bg-layer.visible { opacity: 1; }
         
-        /* Fixed the alignment: Added min-height to ensure the container is a consistent size */
         .container {
             position: absolute;
             top: 50%; 
@@ -113,8 +112,21 @@
             document.getElementById('message-container').classList.remove('hidden');
             document.getElementById('bg-photo').classList.add('visible');
             document.getElementById('birthday-song').play();
-            confetti({ particleCount: 150, origin: { x: 0, y: 1 } });
-            confetti({ particleCount: 150, origin: { x: 1, y: 1 } });
+            
+            // Stage 1: Burst from bottom corners
+            confetti({ particleCount: 300, origin: { x: 0, y: 1 } });
+            confetti({ particleCount: 300, origin: { x: 1, y: 1 } });
+
+            // Stage 2: Rain from above (delayed by 500ms)
+            setTimeout(() => {
+                confetti({
+                    particleCount: 500,
+                    spread: 180,
+                    origin: { y: 0 },
+                    gravity: 0.5,
+                    ticks: 2400
+                });
+            }, 500);
         });
     </script>
 </body>
