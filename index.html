@@ -107,7 +107,6 @@
     </div>
 
     <script>
-        // Custom palette
         const myConfettiColors = ['#F27FA9', '#C48FE2', '#76C2EC', '#FFF0A5'];
 
         document.getElementById('click-me-btn').addEventListener('click', function() {
@@ -118,37 +117,40 @@
             const song = document.getElementById('birthday-song');
             song.play().catch(e => console.log("Playback prevented:", e));
             
-            // Helper to pick a random color
             const randomColor = () => myConfettiColors[Math.floor(Math.random() * myConfettiColors.length)];
 
-            // 1. Initial bursts
-            confetti({ 
-                particleCount: 300, 
-                origin: { x: 0, y: 1 }, 
-                colors: myConfettiColors 
-            });
-            confetti({ 
-                particleCount: 300, 
-                origin: { x: 1, y: 1 }, 
-                colors: myConfettiColors 
+            // 1. Four Corner Bursts
+            const corners = [
+                { x: 0, y: 0 }, { x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }
+            ];
+
+            corners.forEach(origin => {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: origin,
+                    colors: myConfettiColors
+                });
             });
 
-            // 2. Continuous rain loop
-            const rainConfetti = () => {
-                confetti({
-                    particleCount: 2,
-                    angle: 270,
-                    spread: 10,
-                    startVelocity: 1,
-                    origin: { x: Math.random(), y: 0 },
-                    gravity: 0.4,
-                    ticks: 600,
-                    scalar: 0.8,
-                    colors: [randomColor()] // Forced individual selection for variety
-                });
-                requestAnimationFrame(rainConfetti);
-            };
-            rainConfetti();
+            // 2. Start the "Rain" after a 1-second delay
+            setTimeout(() => {
+                const rainConfetti = () => {
+                    confetti({
+                        particleCount: 2,
+                        angle: 270,
+                        spread: 10,
+                        startVelocity: 1,
+                        origin: { x: Math.random(), y: 0 },
+                        gravity: 0.4,
+                        ticks: 600,
+                        scalar: 0.8,
+                        colors: [randomColor()]
+                    });
+                    requestAnimationFrame(rainConfetti);
+                };
+                rainConfetti();
+            }, 1000); 
         });
     </script>
 </body>
