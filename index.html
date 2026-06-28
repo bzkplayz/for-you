@@ -36,15 +36,16 @@
         }
         .bg-layer.visible { opacity: 1; }
         
-        /* Centering Logic: Fixed at 45% to look elegant but fully centered */
+        /* Fixed the alignment: Added min-height to ensure the container is a consistent size */
         .container {
             position: absolute;
-            top: 45%; 
+            top: 50%; 
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
             width: 90%;
             max-width: 500px;
+            min-height: 300px; 
             display: flex;
             justify-content: center;
             align-items: center;
