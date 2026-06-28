@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Shenu!</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* STAGE 1 BACKGROUND */
+            background: linear-gradient(135deg, #fed6e3 0%, #a8c1ef 100%);
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            overflow: hidden;
+            transition: background 0.5s ease;
+        }
+        .container {
+            padding: 20px;
+            z-index: 10;
+            transition: all 0.5s ease;
+            width: 92%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* Glass card styling applied dynamically during Stage 2 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 40px 24px;
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        /* Style for the initial button */
+        .gift-btn {
+            background-color: #ff477e;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 71, 126, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .gift-btn:hover {
+            transform: scale(1.05);
+            background-color: #ff2a65;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .birthday-message {
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+        
+        /* SVG Sticker Container Style */
+        .svg-sticker-container {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            filter: drop-shadow(0px 10px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .svg-sticker-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 68px;
+            user-select: none;
+        }
+
+        /* SUBTITLE TEXT */
+        p {
+            font-family: 'Quicksand', sans-serif; 
+            font-size: 1.4rem; 
+            font-style: italic; 
+            font-weight: 700; 
+            color: #4a4a4a;
+            margin-top: -15px; 
+            position: relative;
+            z-index: 5;
+            letter-spacing: 0.3px;
+            line-height: 1.4;
+        }
+
+        /* RESPONSIVE MOBILE OPTIMIZATIONS */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            .glass-card {
+                padding: 30px 15px;
+                border-radius: 20px;
+            }
+            .svg-sticker-text {
+                font-size: 64px;
+            }
+            p {
+                font-size: 1.1rem; 
+                margin-top: -8px;  
+                padding: 0 5px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="birthday-song" src="birthday-song.mp3" preload="auto"></audio>
+
+    <div id="main-container" class="container">
+        <button id="click-me-btn" class="gift-btn">Click Here</button>
+
+        <div id="message-container" class="birthday-message hidden">
+            
+            <div class="svg-sticker-container">
+                <svg viewBox="0 0 600 250" width="100%" height="100%">
+                    <defs>
+                        <linearGradient id="pinkGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#ffb5d2" />
+                            <stop offset="55%" stop-color="#ff5287" />
+                            <stop offset="100%" stop-color="#cc1b53" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <g text-anchor="middle" class="svg-sticker-text">
+                        <text x="50%" y="90" fill="#6A3970" stroke="#6A3970" stroke-width="26" stroke-linejoin="round" stroke-linecap="round">Happy Birthday</text>
+                        <text x="50%" y="185" fill="#6A3970" stroke="#6A3970" stroke-width="26" stroke-linejoin="round" stroke-linecap="round">Shenu!</text>
+                        
+                        <text x="50%" y="90" fill="#ffffff" stroke="#ffffff" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">Happy Birthday</text>
+                        <text x="50%" y="185" fill="#ffffff" stroke="#ffffff" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">Shenu!</text>
+                        
+                        <text x="50%" y="90" fill="url(#pinkGradient)">Happy Birthday</text>
+                        <text x="50%" y="185" fill="url(#pinkGradient)">Shenu!</text>
+                    </g>
+                </svg>
+            </div>
+
+            <p>Wishing you a wonderful day filled with joy and happiness!</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('click-me-btn').addEventListener('click', function() {
+            this.classList.add('hidden');
+            document.getElementById('message-container').classList.remove('hidden');
+            
+            document.body.style.backgroundImage = "url('birthday-bg.png')";
+            document.body.style.backgroundRepeat = "no-repeat";
+            document.body.style.backgroundPosition = "center center";
+            document.body.style.backgroundAttachment = "fixed";
+            document.body.style.backgroundSize = "cover";
+            
+            document.getElementById('main-container').classList.add('glass-card');
+
+            var song = document.getElementById('birthday-song');
+            song.play().catch(function(error) {
+                console.log("Audio playback failed:", error);
+            });
+
+            triggerConfettiEffects();
+        });
+
+        function triggerConfettiEffects() {
+            // A festive palette of bright birthday colors
+            var birthdayColors = ['#ff477e', '#ff70a6', '#ff97b7', '#a8c1ef', '#ffbc42', '#34a0a4', '#b5e2fa'];
+
+            // TWO INTENSE CORNER BLASTS AT CLICK (Massive volume, high velocity to throw pieces far across mobile screens)
+            confetti({
+                particleCount: 180,       // Tons of noticeable paper pieces
+                angle: 65,                 // Shoots beautifully upward and inward
+                spread: 65,                // Wide cone of paper spray
+                startVelocity: 55,         // High velocity pushes the pieces all the way up and out
+                origin: { x: 0, y: 1.0 },  // Dead corner placement
+                colors: birthdayColors,
+                gravity: 0.9,              // Slightly lighter gravity makes them float down gracefully
+                scalar: 1.15               // Makes the confetti pieces slightly larger and clearer
+            });
+
+            confetti({
+                particleCount: 180,
+                angle: 115,
+                spread: 65,
+                startVelocity: 55,
+                origin: { x: 1.0, y: 1.0 },
+                colors: birthdayColors,
+                gravity: 0.9,
+                scalar: 1.15
+            });
+
+            // GENTLE TOP RAIN SCRIPT (Instantly trails the explosions, creating a continuous falling paper cloud for 5 seconds)
+            var duration = 5 * 1000; 
+            var end = Date.now() + duration;
+
+            (function frame() {
+                // Rains tiny pairs of pieces softly across the top horizontal axis of the screen
+                confetti({
+                    particleCount: 3,
+                    angle: 90,
+                    spread: 360,
+                    startVelocity: 0,       // No force, just drop from above
+                    ticks: 240,             // Keeps pieces alive all the way to the bottom
+                    colors: birthdayColors,
+                    origin: { x: Math.random(), y: Math.random() * 0.2 - 0.25 } // Drops randomly from out-of-bounds top area
+                });
+
+                if (Date.now() < end) { 
+                    requestAnimationFrame(frame); 
+                }
+            }());
+        }
+    </script>
+</body>
+</html>
